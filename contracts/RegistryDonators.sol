@@ -1,7 +1,6 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.9;
 
-import "hardhat/console.sol";
 
 contract RegistryDonators {
     address[] public donatorsList;
@@ -14,7 +13,6 @@ contract RegistryDonators {
     }
 
     function getDonators() public view returns (address[] memory) {
-        console.log("hi!");
         return donatorsList;
     }
 
