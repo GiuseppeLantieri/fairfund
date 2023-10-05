@@ -25,7 +25,7 @@ describe('RegistryDonators Contract', function () {
   });
 
   it('should deploy with the correct campaign address', async function () {
-    expect(await registryDonators.campain()).to.equal(campaign.address);
+    expect(await registryDonators.campaign()).to.equal(campaign.address);
   });
 
   it('should allow the campaign to add donators', async function () {
@@ -43,7 +43,7 @@ describe('RegistryDonators Contract', function () {
 
   it('should not allow non-campaign to add donators', async function () {
     await expect(registryDonators.connect(user).addDonators(user.address, 100)).to.be.revertedWith(
-      'You are not my Campain'
+      'You are not my Campaign'
     );
   });
 

@@ -8,7 +8,7 @@ export function Raccolta({ cards }: {
         title: string,
         src: string,
         id: string,
-        descrpition: string,
+        description: string,
         fondi: number,
         mio: number
 
@@ -24,7 +24,7 @@ export function Raccolta({ cards }: {
                         cards && cards.map((e, index) => {
                             return (
                                 <Col key={index} lg={3}>
-                                    <Card title={e.title} src={e.src} progress={(e.mio / e.fondi) * 100} id={e.id} descrpition={e.descrpition} />
+                                    <Card title={e.title} src={e.src} progress={(e.mio / e.fondi) * 100} id={e.id} description={e.description} />
                                 </Col>
                             )
                         })

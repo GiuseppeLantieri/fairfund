@@ -7,7 +7,7 @@ export function Carousel({ cards }: {
         title: string,
         src: string,
         id: string,
-        descrpition: string,
+        description: string,
         fondi: number,
         mio: number
 
@@ -20,7 +20,7 @@ export function Carousel({ cards }: {
                 cards.map((c: any) => {
                     return (
                         <Col lg={4}>
-                            <Card title={c.title} src={c.url} progress={(c.fondi / c.budget)} id={c.id} descrpition={c.description} />
+                            <Card title={c.title} src={c.url} progress={(c.fondi / c.budget)} id={c.id} description={c.description} />
                         </Col>
                     )
                 })

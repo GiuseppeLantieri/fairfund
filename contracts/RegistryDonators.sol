@@ -6,10 +6,10 @@ contract RegistryDonators {
     address[] public donatorsList;
     mapping(address => uint) public donators;
 
-    address public campain;
+    address public campaign;
 
-    constructor(address _campain) {
-        campain = _campain;
+    constructor(address _campaign) {
+        campaign = _campaign;
     }
 
     function getDonators() public view returns (address[] memory) {
@@ -21,7 +21,7 @@ contract RegistryDonators {
     }
 
     function addDonators(address sender, uint amount) external {
-        require(msg.sender == campain, "You are not my Campain");
+        require(msg.sender == campaign, "You are not my Campaign");
 
         donators[sender] = amount;
         donatorsList.push(sender);

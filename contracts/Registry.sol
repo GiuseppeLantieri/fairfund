@@ -2,19 +2,19 @@
 pragma solidity ^0.8.9;
 
 contract Registry {
-    address[] public campainsList;
+    address[] public campaignsList;
     address public factory;
 
     constructor(address _factory) {
         factory = _factory;
     }
 
-    function getCampains() public view returns (address[] memory) {
-        return campainsList;
+    function getCampaigns() public view returns (address[] memory) {
+        return campaignsList;
     }
 
-    function addCampain(address campain) public {
+    function addCampaign(address campaign) public {
         require(msg.sender == factory, "You are not my factory");
-        campainsList.push(campain);
+        campaignsList.push(campaign);
     }
 }

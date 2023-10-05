@@ -4,7 +4,7 @@ pragma solidity ^0.8.9;
 import "./Nft.sol";
 import "./RegistryDonators.sol";
 
-contract Campain {
+contract Campaign {
     uint public unlockTime;
     address payable public owner;
     address payable public admin;
@@ -49,7 +49,7 @@ contract Campain {
 
     function withdraw(string[] memory uris) public {
         require(block.timestamp >= unlockTime, "You can't withdraw yet");
-        require(!isPaused, "The Admin paused this campain");
+        require(!isPaused, "The Admin paused this campaign");
         require(msg.sender == receiver, "You aren't the receiver");
 
         emit Withdrawal(address(this).balance, block.timestamp);
@@ -75,7 +75,7 @@ contract Campain {
     }
 
     function setPause(bool state) public {
-        require(msg.sender == admin, "Only the admin can pause the campain");
+        require(msg.sender == admin, "Only the admin can pause the campaign");
         isPaused = state;
         emit ChangeState(state, block.timestamp);
     }

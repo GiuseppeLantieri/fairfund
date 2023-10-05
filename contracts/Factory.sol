@@ -2,7 +2,7 @@
 pragma solidity ^0.8.9;
 
 import "./Registry.sol";
-import "./Campain.sol";
+import "./Campaign.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 
 contract Factory is Ownable {
@@ -12,14 +12,14 @@ contract Factory is Ownable {
         registry = new Registry(address(this));
     }
 
-    function createCampain(
+    function createCampaign(
         uint _unlockTime,
         uint _budget,
         address _receiver,
         string memory _name,
         string memory _description
     ) public {
-        Campain campain = new Campain(
+        Campaign campaign = new Campaign(
             _unlockTime,
             address(this),
             _receiver,
@@ -29,10 +29,10 @@ contract Factory is Ownable {
             "FFT"
         );
 
-        registry.addCampain(address(campain));
+        registry.addCampaign(address(campaign));
     }
 
-    function changeStateCampain(address campain, bool state) public onlyOwner {
-        Campain(campain).setPause(state);
+    function changeStateCampaign(address campaign, bool state) public onlyOwner {
+        Campaign(campaign).setPause(state);
     }
 }

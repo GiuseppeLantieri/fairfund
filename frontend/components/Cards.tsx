@@ -6,7 +6,7 @@ import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
 
 
-export function Card({ title, src, progress, descrpition, id }: { title: string, src: string, progress: number, id: string, descrpition: string }) {
+export function Card({ title, src, progress, description, id }: { title: string, src: string, progress: number, id: string, description: string }) {
     const click = () => { }
     const [hoover, setHoover] = useState(false);
 
@@ -22,7 +22,7 @@ export function Card({ title, src, progress, descrpition, id }: { title: string,
 
             {hoover ?
                 <p style={{ padding: "3em" }}>
-                    descrpition
+                    description
                 </p>
                 :
                 <>

@@ -16,7 +16,7 @@ describe('Campaign Contract', function () {
 
   before(async function () {
     [owner, admin, receiver, user] = await ethers.getSigners();
-    Campaign = await ethers.getContractFactory('Campain');
+    Campaign = await ethers.getContractFactory('Campaign');
     Nft = await ethers.getContractFactory('Nft');
     RegistryDonators = await ethers.getContractFactory('RegistryDonators');
   });

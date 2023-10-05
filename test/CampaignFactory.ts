@@ -5,9 +5,9 @@ import {
 import { anyValue } from "@nomicfoundation/hardhat-chai-matchers/withArgs";
 import { expect } from "chai";
 import { ethers } from "hardhat";
-import { Campain, RegistryDonators } from "../typechain-types";
+import { Campaign, RegistryDonators } from "../typechain-types";
 
-describe("FactoryCampain", async () => {
+describe("FactoryCampaign", async () => {
   async function getCostant() {
     const ONE_YEAR_IN_SECS = 365 * 24 * 60 * 60;
     const ONE_MINUTE_IN_SECS = 60;
@@ -42,29 +42,29 @@ describe("FactoryCampain", async () => {
 
       const registry = await ethers.getContractAt("Registry", await factory.registry());
 
-      await (await factory.connect(otherAccount).createCampain(unlockTime, ONE_GWEI, otherAccount, "Campagna WWF", "Campagna per il wwf")).wait();
+      await (await factory.connect(otherAccount).createCampaign(unlockTime, ONE_GWEI, otherAccount, "Campagna WWF", "Campagna per il wwf")).wait();
 
-      const campainAddress = (await registry.getCampains())[0];
+      const campaignAddress = (await registry.getCampaigns())[0];
 
-      const campain = await ethers.getContractAt("Campain", campainAddress);
-      const registryAddress = await campain.registryDonators();
+      const campaign = await ethers.getContractAt("Campaign", campaignAddress);
+      const registryAddress = await campaign.registryDonators();
       const registryDonators = await ethers.getContractAt("RegistryDonators", registryAddress);
 
-      await (await campain.connect(otherAccount).sendFund({ value: ONE_GWEI })).wait();
-      console.log(await ethers.provider.getBalance(campainAddress));
+      await (await campaign.connect(otherAccount).sendFund({ value: ONE_GWEI })).wait();
+      console.log(await ethers.provider.getBalance(campaignAddress));
       console.log(await registryDonators.getDonators());
       console.log(await registryDonators.donators(otherAccount.address));
-      console.log(await campain.budget());
-      console.log(await campain.descptription());
-      console.log(await campain.name());
-      console.log(await campain.isPaused());
+      console.log(await campaign.budget());
+      console.log(await campaign.description());
+      console.log(await campaign.name());
+      console.log(await campaign.isPaused());
       // Transactions are sent using the first signer by default
       await time.increaseTo(unlockTime);
 
-      await (await campain.connect(otherAccount).withdraw(["stocazzo"])).wait();
-      console.log(await campain.nft());
+      await (await campaign.connect(otherAccount).withdraw(["stocazzo"])).wait();
+      console.log(await campaign.nft());
 
-      const nft = await ethers.getContractAt("Nft", await campain.nft());
+      const nft = await ethers.getContractAt("Nft", await campaign.nft());
       console.log(await nft.balanceOf(otherAccount.address));
       console.log(await nft.ownerOf(0));
       console.log(await nft.tokenURI(0));

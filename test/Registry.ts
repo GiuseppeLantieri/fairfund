@@ -34,9 +34,9 @@ describe('Registry Contract', function () {
 
     await registry.connect(factory).addCampain(campaignAddress);
 
-    const campainsList = await registry.getCampains();
-    expect(campainsList.length).to.equal(1);
-    expect(campainsList[0]).to.equal(campaignAddress);
+    const campaignsList = await registry.getCampains();
+    expect(campaignsList.length).to.equal(1);
+    expect(campaignsList[0]).to.equal(campaignAddress);
   });
 
   it('should not allow non-factory to add a campaign', async function () {
