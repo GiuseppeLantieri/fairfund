@@ -20,21 +20,21 @@ First open a terminal in the parent directory of the project and run:
 npm i
 ```
 
-this will install all the required packages required.
+this will install all the required packages.
 ## Setting local environment variables
-create a file in the parent directory called **.env** and put your wallet private key inside as follow:
+create a file in the parent directory called `.env` and put your wallet private key inside as follow:
 
 ```
 PRIVATE_KEY="<private-key>"
 ```
 ## Deploy the smart contracts on Bitfinity Network
-Once you're good with the previous steps it's time to deploy the smartcontract. We used the hardhat framework so the deploy is very easy, just execute this command in the parent folder of the project:
+Once you're good with the previous steps it's time to deploy the smart contract. We used the hardhat framework so the deploy is very easy, just execute this command in the parent folder of the project:
 
 ```batch
 npx hardhat run --network bitfinityTest scripts/deploy.js
 ```
 
-it's possible to change the destination network (we used the bitfinity test network in the scope of this project) specifing a new network in the hardhat.config.ts configuration file such as:
+it's possible to change the destination network (we used the bitfinity test network for the scope of this project) specifing a new network in the hardhat.config.ts configuration file such as:
 
 ```
 networks: {
@@ -62,9 +62,8 @@ The deploy of the static website is pretty simple. Let's start configuring the `
 }
 ```
 
-Just be sure to add eventual asset folders you want to include to the source configuration and change the website name.
-If you're not changing the project structure the configuration file will work just fine as it is.  
-The deploy is done with `dfx`:
+To add eventual asset folders you want to include add those to the source configuration. also don't forget to change the website name if you want to.
+If you're not changing the project structure the configuration file will work just fine as it is. The deploy of the website is done with `dfx` live on the Interet Computer network:
 
 ```
 dfx deploy --network playground
@@ -78,6 +77,9 @@ first search the canister ID running:
 dfx canister --network playground id fairfounds
 ```
 
-As always change the flag if you deployed on a different network and take note of the returned value that should looks something like `cbopz-duaaa-aaaaa-qaaka-cai` which is the canister ID.
+As always change the flag if you deployed on a different network and take note of the return value that should looks something like `cbopz-duaaa-aaaaa-qaaka-cai` which is the canister ID.
 
-The website is now accessible at https://<canister-id>.icp0.io
+The website is now accessible at https://canister-id.icp0.io
+
+# How our product works
+da scrivere
