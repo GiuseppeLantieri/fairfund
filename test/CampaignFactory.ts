@@ -2,10 +2,7 @@ import {
   time,
   loadFixture,
 } from "@nomicfoundation/hardhat-toolbox/network-helpers";
-import { anyValue } from "@nomicfoundation/hardhat-chai-matchers/withArgs";
-import { expect } from "chai";
 import { ethers } from "hardhat";
-import { Campaign, RegistryDonators } from "../typechain-types";
 
 describe("FactoryCampaign", async () => {
   async function getCostant() {
@@ -58,10 +55,10 @@ describe("FactoryCampaign", async () => {
       console.log(await campaign.description());
       console.log(await campaign.name());
       console.log(await campaign.isPaused());
-      // Transactions are sent using the first signer by default
-      await time.increaseTo(unlockTime);
+      // Time skipping
+      // await time.increaseTo(unlockTime);
 
-      await (await campaign.connect(otherAccount).withdraw(["stocazzo"])).wait();
+      await (await campaign.connect(otherAccount).withdraw(["https://"])).wait();
       console.log(await campaign.nft());
 
       const nft = await ethers.getContractAt("Nft", await campaign.nft());

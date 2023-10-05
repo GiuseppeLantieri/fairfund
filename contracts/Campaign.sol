@@ -4,6 +4,8 @@ pragma solidity ^0.8.9;
 import "./Nft.sol";
 import "./RegistryDonators.sol";
 
+// import "hardhat/console.sol";
+
 contract Campaign {
     uint public unlockTime;
     address payable public owner;
@@ -13,6 +15,7 @@ contract Campaign {
     RegistryDonators public registryDonators;
 
     uint public budget;
+    uint public fundRaised;
     string public name;
     string public description;
     string public symbol;
@@ -45,32 +48,49 @@ contract Campaign {
         description = _description;
         budget = _budget;
         registryDonators = new RegistryDonators(address(this));
+        fundRaised = 0;
     }
 
     function withdraw(string[] memory uris) public {
-        require(block.timestamp >= unlockTime, "You can't withdraw yet");
+        uint myBalance = address(this).balance;
+        require(
+            block.timestamp >= unlockTime || fundRaised >= budget,
+            "You can't withdraw yet"
+        );
         require(!isPaused, "The Admin paused this campaign");
         require(msg.sender == receiver, "You aren't the receiver");
 
-        emit Withdrawal(address(this).balance, block.timestamp);
+        emit Withdrawal(myBalance, block.timestamp);
 
         _createNftForDonators(uris);
-        receiver.transfer(address(this).balance);
+        receiver.transfer(myBalance);
     }
 
     function sendFund() public payable {
+        require(!isPaused, "The Admin paused this campaign");
         address sender = msg.sender;
         uint amount = msg.value;
 
+        if (fundRaised >= budget) receiver.transfer(amount);
+
         registryDonators.addDonators(sender, amount);
+        fundRaised += amount;
     }
 
     function _createNftForDonators(string[] memory uris) private {
+        require(uris.length != 0, "Nft must have one uri");
+
         Nft token = new Nft(name, symbol);
         nft = address(token);
 
-        for (uint i = 0; i < registryDonators.getDonatorsLength(); i++) {
-            token.safeMint(registryDonators.getDonators()[i], uris[i]);
+        if (uris.length == 1) {
+            for (uint i = 0; i < registryDonators.getDonatorsLength(); i++) {
+                token.safeMint(registryDonators.getDonators()[i], uris[0]);
+            }
+        } else if (uris.length == registryDonators.getDonatorsLength()) {
+            for (uint i = 0; i < registryDonators.getDonatorsLength(); i++) {
+                token.safeMint(registryDonators.getDonators()[i], uris[i]);
+            }
         }
     }
 
