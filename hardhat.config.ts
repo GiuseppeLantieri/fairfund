@@ -15,7 +15,7 @@ const config: HardhatUserConfig = {
     }
   },
   networks: {
-    bitfinity: {
+    bitfinityTest: {
       chainId: 355113,
       url: "https://testnet.bitfinity.network",
       accounts: [PRIVATE_KEY]
