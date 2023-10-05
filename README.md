@@ -47,12 +47,6 @@ networks: {
 ```
 
 Just be sure to provide the private key of a wallet with a sufficient amount of BFT or the currency token of the network you're deploying in.
-### Verify the contract is correctly indexed
-After the deploy take note of the **address** and **unlock time** returned in the console to check that everything is correctly indexed and working:
-
-```
-npx hardhat verify --network bitfinityTest <address> <unlock time>
-```
 
 ## Deploy the Canister with the website on IC.
 The deploy of the static website is pretty simple. Let's start configuring the `dfx.json` file which should be somithing like:
