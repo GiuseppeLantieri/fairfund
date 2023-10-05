@@ -76,7 +76,7 @@ The deploy is done with `dfx`:
 dfx deploy --network playground
 ```
 
-if you want to deploy the application on the mainnet chenge the flag in `--network ic`, or change it to `--network local` if you want to try it in local.
+if you want to deploy the application on the mainnet change the flag in `--network ic`, or change it to `--network local` if you want to try it in local.
 ### Check out the website
 first search the canister ID running:
 
@@ -84,6 +84,6 @@ first search the canister ID running:
 dfx canister --network playground id fairfounds
 ```
 
-As always change the flag if you deployed on a different network and take note of the returned values that should look something like `cbopz-duaaa-aaaaa-qaaka-cai` which is the canister ID.
+As always change the flag if you deployed on a different network and take note of the returned value that should looks something like `cbopz-duaaa-aaaaa-qaaka-cai` which is the canister ID.
 
 The website is now accessible at https://<canister-id>.icp0.io
