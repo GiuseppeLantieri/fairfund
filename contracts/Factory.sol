@@ -6,32 +6,33 @@ import "./Campain.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 
 contract Factory is Ownable {
-    IRegistry public registry;
+    Registry public registry;
 
-    constructor() {}
+    constructor() {
+        registry = new Registry(address(this));
+    }
 
     function createCampain(
         uint _unlockTime,
+        uint _budget,
         address _receiver,
         string memory _name,
-        string memory _symbol
+        string memory _description
     ) public {
         Campain campain = new Campain(
             _unlockTime,
             address(this),
             _receiver,
             _name,
-            _symbol
+            _description,
+            _budget,
+            "FFT"
         );
-        if (address(registry) != address(0))
-            registry.addCampain(address(campain));
+
+        registry.addCampain(address(campain));
     }
 
     function changeStateCampain(address campain, bool state) public onlyOwner {
         Campain(campain).setPause(state);
-    }
-
-    function setRegistry(address newRegistry) public onlyOwner {
-        registry = IRegistry(newRegistry);
     }
 }

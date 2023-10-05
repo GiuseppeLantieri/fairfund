@@ -1,11 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.9;
 
-interface IRegistry {
-    function addCampain(address campain) external;
-}
-
-contract Registry is IRegistry {
+contract Registry {
     address[] public campainsList;
     address public factory;
 
@@ -17,7 +13,7 @@ contract Registry is IRegistry {
         return campainsList;
     }
 
-    function addCampain(address campain) external override {
+    function addCampain(address campain) public {
         require(msg.sender == factory, "You are not my factory");
         campainsList.push(campain);
     }

@@ -1,4 +1,13 @@
+import campain from "./deploy/Campain.json";
+import factory from "./deploy/Factory.json";
+import nft from "./deploy/Nft.json";
+import registry from "./deploy/Registry.json";
+import rDonators from "./deploy/RegistryDonators.json";
+
 export default {
-    factory: "0x9Fd4d9aFc084B2e35dcDf217671a030A5fD81C5F",
-    registry: "0x1E59443599a4465423c1fc19A13F986798d087B5",
+    campain,
+    factory,
+    nft,
+    registry,
+    rDonators
 }

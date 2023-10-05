@@ -29,28 +29,20 @@ describe("FactoryCampain", async () => {
     const Factory = await ethers.getContractFactory("Factory");
     const factory = await Factory.deploy();
 
-    const Registry = await ethers.getContractFactory("Registry");
-    const registry = await Registry.deploy(await factory.getAddress());
-
-    await (await factory.connect(owner).setRegistry(await registry.getAddress())).wait();
-
-    return { factory, registry, owner, otherAccount };
+    return { factory, owner, otherAccount };
 
   }
 
   describe("Deployment", function () {
     it("Should deploy the correct Factory", async function () {
-      const { factory, registry, otherAccount, owner } = await loadFixture(createFactory);
+      const { factory, otherAccount, owner } = await loadFixture(createFactory);
       // expect(await lock.unlockTime()).to.equal(unlockTime);
       const { ONE_DAY_IN_SECS, ONE_GWEI, ONE_HOUR_IN_SECS, ONE_MINUTE_IN_SECS, ONE_YEAR_IN_SECS, lockedAmount, unlockTime } = await getCostant();
 
-      /* 
-      uint _unlockTime,
-      address _receiver,
-      string memory _name,
-      string memory _symbol 
-      */
-      await (await factory.connect(otherAccount).createCampain(unlockTime, otherAccount, "Campagna WWF", "WWF")).wait();
+
+      const registry = await ethers.getContractAt("Registry", await factory.registry());
+
+      await (await factory.connect(otherAccount).createCampain(unlockTime, ONE_GWEI, otherAccount, "Campagna WWF", "Campagna per il wwf")).wait();
 
       const campainAddress = (await registry.getCampains())[0];
 
@@ -61,7 +53,21 @@ describe("FactoryCampain", async () => {
       await (await campain.connect(otherAccount).sendFund({ value: ONE_GWEI })).wait();
       console.log(await ethers.provider.getBalance(campainAddress));
       console.log(await registryDonators.getDonators());
+      console.log(await registryDonators.donators(otherAccount.address));
+      console.log(await campain.budget());
+      console.log(await campain.descptription());
+      console.log(await campain.name());
+      console.log(await campain.isPaused());
+      // Transactions are sent using the first signer by default
+      await time.increaseTo(unlockTime);
 
+      await (await campain.connect(otherAccount).withdraw(["stocazzo"])).wait();
+      console.log(await campain.nft());
+
+      const nft = await ethers.getContractAt("Nft", await campain.nft());
+      console.log(await nft.balanceOf(otherAccount.address));
+      console.log(await nft.ownerOf(0));
+      console.log(await nft.tokenURI(0));
 
     });
   })

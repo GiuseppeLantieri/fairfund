@@ -9,10 +9,12 @@ contract Campain {
     address payable public owner;
     address payable public admin;
     address payable public receiver;
-    address public nftAddress;
+    address public nft;
     RegistryDonators public registryDonators;
 
+    uint public budget;
     string public name;
+    string public description;
     string public symbol;
 
     bool public isPaused;
@@ -25,6 +27,8 @@ contract Campain {
         address _admin,
         address _receiver,
         string memory _name,
+        string memory _description,
+        uint _budget,
         string memory _symbol
     ) {
         require(
@@ -38,15 +42,14 @@ contract Campain {
         receiver = payable(_receiver);
         name = _name;
         symbol = _symbol;
+        description = _description;
+        budget = _budget;
         registryDonators = new RegistryDonators(address(this));
     }
 
     function withdraw(string[] memory uris) public {
-        // Uncomment this line, and the import of "hardhat/console.sol", to print a log in your terminal
-        // console.log("Unlock time is %o and block timestamp is %o", unlockTime, block.timestamp);
-
         require(block.timestamp >= unlockTime, "You can't withdraw yet");
-        require(isPaused, "The Admin paused this campain");
+        require(!isPaused, "The Admin paused this campain");
         require(msg.sender == receiver, "You aren't the receiver");
 
         emit Withdrawal(address(this).balance, block.timestamp);
@@ -64,7 +67,7 @@ contract Campain {
 
     function _createNftForDonators(string[] memory uris) private {
         Nft token = new Nft(name, symbol);
-        nftAddress = address(token);
+        nft = address(token);
 
         for (uint i = 0; i < registryDonators.getDonatorsLength(); i++) {
             token.safeMint(registryDonators.getDonators()[i], uris[i]);
