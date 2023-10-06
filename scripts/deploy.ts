@@ -5,10 +5,10 @@ async function main() {
 
   const Factory = await ethers.getContractFactory("Factory");
   // hardhat bug with nonce
-  const factory = await Factory.deploy({ nonce: 5 });
+  const factory = await Factory.deploy({ nonce: 8 });
 
 
-  console.log("factory address", await factory.getAddress());
+  console.log("factory address", await factory.getAddress(), "registry address:", await factory.registry());
 }
 
 main().catch((error) => {

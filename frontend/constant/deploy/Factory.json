@@ -1,6 +1,6 @@
 {
-  "address": "0x2E01088FeAe9589DB1F594D4550954C1A84febBb",
-  "abi": [
+  "address": "0x9F1E9d428dC57ccD8d0f166E31eE10a01721eA97",
+  "abi":  [
     {
       "inputs": [],
       "stateMutability": "nonpayable",
@@ -29,7 +29,7 @@
       "inputs": [
         {
           "internalType": "address",
-          "name": "campain",
+          "name": "campaign",
           "type": "address"
         },
         {
@@ -38,7 +38,7 @@
           "type": "bool"
         }
       ],
-      "name": "changeStateCampain",
+      "name": "changeStateCampaign",
       "outputs": [],
       "stateMutability": "nonpayable",
       "type": "function"
@@ -67,11 +67,31 @@
         },
         {
           "internalType": "string",
+          "name": "_image",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "_company",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "_location",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "_postal",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
           "name": "_description",
           "type": "string"
         }
       ],
-      "name": "createCampain",
+      "name": "createCampaign",
       "outputs": [],
       "stateMutability": "nonpayable",
       "type": "function"

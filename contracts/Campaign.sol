@@ -10,16 +10,20 @@ contract Campaign {
     uint public unlockTime;
     address payable public owner;
     address payable public admin;
-    address payable public receiver;
     address public nft;
     RegistryDonators public registryDonators;
 
-    uint public budget;
-    uint public fundRaised;
     string public name;
     string public description;
-    string public symbol;
+    string public image;
+    uint public budget;
+    string public company;
+    string public location;
+    string public postal;
+    address payable public receiver;
+    uint public fundRaised;
 
+    string public symbol;
     bool public isPaused;
 
     event Withdrawal(uint amount, uint when);
@@ -31,7 +35,11 @@ contract Campaign {
         address _receiver,
         string memory _name,
         string memory _description,
+        string memory _image,
         uint _budget,
+        string memory _company,
+        string memory _location,
+        string memory _postal,
         string memory _symbol
     ) {
         require(
@@ -42,13 +50,20 @@ contract Campaign {
         unlockTime = _unlockTime;
         owner = payable(msg.sender);
         admin = payable(_admin);
-        receiver = payable(_receiver);
+
         name = _name;
-        symbol = _symbol;
         description = _description;
+        image = _image;
         budget = _budget;
-        registryDonators = new RegistryDonators(address(this));
+        company = _company;
+        location = _location;
+        postal = _postal;
+        receiver = payable(_receiver);
         fundRaised = 0;
+
+        symbol = _symbol;
+
+        registryDonators = new RegistryDonators(address(this));
     }
 
     function withdraw(string[] memory uris) public {

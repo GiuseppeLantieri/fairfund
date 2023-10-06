@@ -4,7 +4,7 @@
       "inputs": [
         {
           "internalType": "address",
-          "name": "_campain",
+          "name": "_campaign",
           "type": "address"
         }
       ],
@@ -31,7 +31,7 @@
     },
     {
       "inputs": [],
-      "name": "campain",
+      "name": "campaign",
       "outputs": [
         {
           "internalType": "address",

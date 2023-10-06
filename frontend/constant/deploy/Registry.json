@@ -1,6 +1,6 @@
 {
-  "address": "0x6CcD97A4DD3096d88bA0c8000eA1a4E98b979cbc",
-  "abi": [
+  "address": "0xDb71F1069891A035E8A6357E23E2dCA937A84287",
+  "abi":  [
     {
       "inputs": [
         {
@@ -16,11 +16,11 @@
       "inputs": [
         {
           "internalType": "address",
-          "name": "campain",
+          "name": "campaign",
           "type": "address"
         }
       ],
-      "name": "addCampain",
+      "name": "addCampaign",
       "outputs": [],
       "stateMutability": "nonpayable",
       "type": "function"
@@ -33,7 +33,7 @@
           "type": "uint256"
         }
       ],
-      "name": "campainsList",
+      "name": "campaignsList",
       "outputs": [
         {
           "internalType": "address",
@@ -59,7 +59,7 @@
     },
     {
       "inputs": [],
-      "name": "getCampains",
+      "name": "getCampaigns",
       "outputs": [
         {
           "internalType": "address[]",

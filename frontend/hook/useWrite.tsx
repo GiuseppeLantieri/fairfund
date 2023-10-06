@@ -8,7 +8,7 @@ import {
 
 interface ContractArgs {
     address: `0x${string}`,
-    abi: Abi,
+    abi: any,
     functionName: string,
     args: any[],
     enabled: boolean,

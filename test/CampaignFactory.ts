@@ -39,7 +39,17 @@ describe("FactoryCampaign", async () => {
 
       const registry = await ethers.getContractAt("Registry", await factory.registry());
 
-      await (await factory.connect(otherAccount).createCampaign(unlockTime, ONE_GWEI, otherAccount, "Campagna WWF", "Campagna per il wwf")).wait();
+      await (await factory.connect(otherAccount).createCampaign(
+        unlockTime,
+        ONE_GWEI,
+        otherAccount,
+        "Campagna WWF",
+        "https:",
+        "WWF",
+        "Africa",
+        "22100",
+        "Campagna per il wwf"
+      )).wait();
 
       const campaignAddress = (await registry.getCampaigns())[0];
 

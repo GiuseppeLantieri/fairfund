@@ -17,6 +17,10 @@ contract Factory is Ownable {
         uint _budget,
         address _receiver,
         string memory _name,
+        string memory _image,
+        string memory _company,
+        string memory _location,
+        string memory _postal,
         string memory _description
     ) public {
         Campaign campaign = new Campaign(
@@ -25,14 +29,21 @@ contract Factory is Ownable {
             _receiver,
             _name,
             _description,
+            _image,
             _budget,
+            _company,
+            _location,
+            _postal,
             "FFT"
         );
 
         registry.addCampaign(address(campaign));
     }
 
-    function changeStateCampaign(address campaign, bool state) public onlyOwner {
+    function changeStateCampaign(
+        address campaign,
+        bool state
+    ) public onlyOwner {
         Campaign(campaign).setPause(state);
     }
 }
