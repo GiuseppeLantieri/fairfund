@@ -6,31 +6,36 @@ import { Footer } from '../components/Footer';
 import { getPublicClient } from '@wagmi/core'
 import { getCampaigns } from '../utils/registry';
 import { getRegistry } from '../utils/factory';
+import { useEffect, useState } from 'react';
+import { getEverythingCampaign } from '../utils/campaigns';
+import { Container, Spinner } from 'react-bootstrap';
 
 const Home: NextPage = () => {
-
+  const [cards, setCards] = useState() as any;
   const publicClient = getPublicClient()
 
-  const cards = [
-    { descrpition: "abc", fondi: 100, id: "1", mio: 10, src: "/asset/i1.jpeg", title: "assert" },
-    { descrpition: "abc", fondi: 100, id: "1", mio: 10, src: "/asset/i2.jpeg", title: "assert" },
-    { descrpition: "abc", fondi: 100, id: "1", mio: 10, src: "/asset/i2.jpeg", title: "assert" },
-    { descrpition: "abc", fondi: 200, id: "1", mio: 10, src: "/asset/i2.jpeg", title: "assert" },
-    { descrpition: "abc", fondi: 0, id: "1", mio: 0, src: "/asset/i2.jpeg", title: "assert" },
-    { descrpition: "abc", fondi: 0, id: "1", mio: 0, src: "/asset/i2.jpeg", title: "assert" },
-    { descrpition: "abc", fondi: 0, id: "1", mio: 0, src: "/asset/i2.jpeg", title: "assert" },
-    { descrpition: "abc", fondi: 0, id: "1", mio: 0, src: "/asset/i2.jpeg", title: "assert" },
-    { descrpition: "abc", fondi: 0, id: "1", mio: 0, src: "/asset/i2.jpeg", title: "assert" },
-  ]
+  useEffect(() => {
+    (async () => {
+      const campaigns = await getCampaigns(publicClient);
+      const data = [];
+      for (const addressC of campaigns) {
+        const detail = await getEverythingCampaign(publicClient, addressC);
+        data.push(detail);
+      }
+
+      setCards(data);
+    })();
+  }, [])
 
 
   return (
     <div >
       <Navbar />
       <Title title='Il Luogo giusto per dare valore a ciò che conta davvero per te' />
-      <button onClick={() => getCampaigns(publicClient)}>Premimi</button>
-      <button onClick={() => getRegistry(publicClient)}>Premimi</button>
-      <Carousel cards={cards} />
+      {!cards && <Container style={{ display: "flex", justifyContent: "center", alignItems: "center", marginTop: "2em" }}>
+                <Spinner style={{ margin: "auto" }} />
+            </Container>}
+      {cards && <Carousel cards={cards} />}
       <Footer />
     </div>
   );

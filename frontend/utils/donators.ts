@@ -21,18 +21,11 @@ export const getDonatorsLength = async (publicClient: any, address: string) => {
     return data;
 }
 
-export const getEverythingCampaign = async (publicClient: any, address: string) => {
-    const data = await publicClient.multicall({
-        contracts: [
-            {
-                ...getContract(address),
-                functionName: 'getDonatorsLength',
-            },
-            {
-                ...getContract(address),
-                functionName: 'getDonators',
-            }
-        ]
-    });
+export const getDonatorAmount = async (publicClient: any, address: string, donator: string) => {
+    const data = await publicClient.readContract({
+        ...getContract(address),
+        functionName: 'donators',
+        args: [donator]
+    })
     return data;
 }

@@ -1,33 +1,32 @@
-import * as React from 'react'
-import { Abi } from 'viem'
-import {
-    usePrepareContractWrite,
-    useContractWrite,
-    useWaitForTransaction,
-} from 'wagmi'
+import { useContractWrite, usePrepareContractWrite, useWaitForTransaction } from "wagmi"
 
-interface ContractArgs {
-    address: `0x${string}`,
-    abi: any,
-    functionName: string,
-    args: any[],
+interface Detail {
+    address: string,
+    abi: {}[],
+    args: {}[] | undefined,
     enabled: boolean,
-
+    value: bigint,
+    functionName: string
 }
 
-export function useWrite(contractArgs: ContractArgs) {
+export function useWrite(detail: Detail) {
     const {
         config,
         error: prepareError,
         isError: isPrepareError,
-    } = usePrepareContractWrite(contractArgs)
+    } = usePrepareContractWrite({
+        address: detail.address as `0x${string}`,
+        abi: detail.abi,
+        functionName: detail.functionName,
+        args: detail.args,
+        enabled: detail.enabled,
+        value: detail.value
+    })
     const { data, error, isError, write } = useContractWrite(config)
 
     const { isLoading, isSuccess } = useWaitForTransaction({
         hash: data?.hash,
     })
 
-    return {
-        isLoading, isSuccess, prepareError, isPrepareError, error, isError, write
-    }
+    return { prepareError, isPrepareError, error, isError, write, isLoading, isSuccess, data }
 }

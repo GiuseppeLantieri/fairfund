@@ -7,7 +7,7 @@ import { useWrite } from '../hook/useWrite';
 import contracts from '../constant/contracts';
 import { parseUnits } from 'viem';
 
-const ONE_MONTH = (new Date().getTime() / 1000) + (24 * 60 * 60 * 30);
+const ONE_MONTH = Math.round(new Date().getTime() / 1000) + (24 * 60 * 60 * 30);
 export function Form() {
 
     const [args, setArgs] = useState() as any;
@@ -28,7 +28,8 @@ export function Form() {
         address: contracts.factory.address as `0x${string}`,
         args: args,
         enabled: Boolean(args),
-        functionName: "createCampaign"
+        functionName: "createCampaign",
+        value: BigInt(0)
     });
 
 

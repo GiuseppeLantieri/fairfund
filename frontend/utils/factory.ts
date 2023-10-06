@@ -6,6 +6,6 @@ export const getRegistry = async (publicClient: any) => {
         abi: contracts.factory.abi,
         functionName: 'registry',
     })
-    console.log(data);
+    return data;
 }
 

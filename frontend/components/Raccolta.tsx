@@ -5,13 +5,20 @@ import { Title } from "./Title";
 
 export function Raccolta({ cards }: {
     cards: {
-        title: string,
-        src: string,
-        id: string,
+        address: string,
+        unlockTime: number,
+        rDonators: string,
+        name: string,
         description: string,
-        fondi: number,
-        mio: number
-
+        image: string,
+        budget: number,
+        company: string,
+        location: string,
+        postal: string,
+        receiver: string,
+        fundRaised: number,
+        Nft: string,
+        myFund: number
     }[]
 }) {
     return (
@@ -24,7 +31,7 @@ export function Raccolta({ cards }: {
                         cards && cards.map((e, index) => {
                             return (
                                 <Col key={index} lg={3}>
-                                    <Card title={e.title} src={e.src} progress={(e.mio / e.fondi) * 100} id={e.id} description={e.description} />
+                                    <Card title={e.name} src={e.image} progress={(e.fundRaised / e.budget) * 100} id={e.address} description={e.description} />
                                 </Col>
                             )
                         })
@@ -32,7 +39,7 @@ export function Raccolta({ cards }: {
                 </Row>
 
             </div>
-            <Title title={`Hai donato un totale di ${cards.reduce((a, b, index) => a + b.mio, 0)}`} />
+            <Title title={`Hai donato un totale di ${cards.reduce((a, b) => a + b.myFund, 0)}`} />
         </>
     )
 }
