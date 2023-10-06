@@ -58,23 +58,27 @@ describe("FactoryCampaign", async () => {
       const registryDonators = await ethers.getContractAt("RegistryDonators", registryAddress);
 
       await (await campaign.connect(otherAccount).sendFund({ value: ONE_GWEI })).wait();
-      console.log(await ethers.provider.getBalance(campaignAddress));
-      console.log(await registryDonators.getDonators());
-      console.log(await registryDonators.donators(otherAccount.address));
-      console.log(await campaign.budget());
-      console.log(await campaign.description());
-      console.log(await campaign.name());
-      console.log(await campaign.isPaused());
+      console.log("balance capaign",await ethers.provider.getBalance(campaignAddress));
+      console.log("donators",await registryDonators.getDonators());
+      console.log("amount donatated",await registryDonators.donators(otherAccount.address));
+      console.log("budget",await campaign.budget());
+      console.log("description",await campaign.description());
+      console.log("name",await campaign.name());
+      console.log("isPaused",await campaign.isPaused());
       // Time skipping
       // await time.increaseTo(unlockTime);
 
+      console.log("nft address before",await campaign.nft());
       await (await campaign.connect(otherAccount).withdraw(["https://"])).wait();
-      console.log(await campaign.nft());
+      console.log("nft address after",await campaign.nft());
 
       const nft = await ethers.getContractAt("Nft", await campaign.nft());
-      console.log(await nft.balanceOf(otherAccount.address));
-      console.log(await nft.ownerOf(0));
-      console.log(await nft.tokenURI(0));
+      console.log("nft balance",await nft.balanceOf(otherAccount.address));
+      console.log("nft owner",await nft.ownerOf(0));
+      console.log("token uri",await nft.tokenURI(0));
+      await (await campaign.connect(otherAccount).sendFund({ value: ONE_GWEI })).wait();
+      console.log("balance of campaign 0 because send direct to receiver now",await ethers.provider.getBalance(campaignAddress));
+
 
     });
   })
