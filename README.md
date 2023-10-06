@@ -82,4 +82,12 @@ As always change the flag if you deployed on a different network and take note o
 The website is now accessible at https://canister-id.icp0.io
 
 # How our product works
-da scrivere
+Our factory smart contract duty is to generate the single campaign-related smart contracts. this last are collected in the registry of the fundraising campaigns.
+
+Each campaign smart contract collect in another registry all the useful information about the received donations.
+
+A really important field is the minimum goal. Once reached the owner of the initiative will be enabled to withdraw all the BFTs owned by the smart contract. When the funds are withdrawn an NFT for each donators is minted and sent as a reward.
+
+After reaching the minimum goal the owner can withdraw the BFTs as soon as they’re available, also at project closure all the pending BFTs are sent to the owner as well.
+
+If the minimum goal is never reached and the deadline in time is met all the BFTs owned by the smart contract are refunded to the donators and no NFT will be minted.
