@@ -76,7 +76,6 @@ describe("FactoryCampaign", async () => {
       console.log("nft balance",await nft.balanceOf(otherAccount.address));
       console.log("nft owner",await nft.ownerOf(0));
       console.log("token uri",await nft.tokenURI(0));
-      await (await campaign.connect(otherAccount).sendFund({ value: ONE_GWEI })).wait();
       console.log("balance of campaign 0 because send direct to receiver now",await ethers.provider.getBalance(campaignAddress));
 
 

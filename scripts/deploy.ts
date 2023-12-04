@@ -5,7 +5,7 @@ async function main() {
 
   const Factory = await ethers.getContractFactory("Factory");
   // hardhat bug with nonce
-  const factory = await Factory.deploy({ nonce: 12 });
+  const factory = await Factory.deploy();
 
 
   console.log("factory address", await factory.getAddress(), "registry address:", await factory.registry());

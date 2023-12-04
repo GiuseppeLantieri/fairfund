@@ -25,6 +25,7 @@ contract Campaign {
 
     string public symbol;
     bool public isPaused;
+    bool public isExausted;
 
     event Withdrawal(uint amount, uint when);
     event ChangeState(bool state, uint when);
@@ -62,26 +63,31 @@ contract Campaign {
         fundRaised = 0;
 
         symbol = _symbol;
+        isPaused = false;
+        isExausted = false;
 
         registryDonators = new RegistryDonators(address(this));
     }
 
     function withdraw(string[] memory uris) public {
-        uint myBalance = address(this).balance;
+        require(!isExausted, "This campaign is already over!");
         require(
             block.timestamp >= unlockTime || fundRaised >= budget,
             "You can't withdraw yet"
         );
         require(!isPaused, "The Admin paused this campaign");
         require(msg.sender == receiver, "You aren't the receiver");
+        uint myBalance = address(this).balance;
 
         emit Withdrawal(myBalance, block.timestamp);
 
         _createNftForDonators(uris);
         receiver.transfer(myBalance);
+        isExausted = true;
     }
 
     function sendFund() public payable {
+        require(!isExausted, "This campaign is already over!");
         require(!isPaused, "The Admin paused this campaign");
         address sender = msg.sender;
         uint amount = msg.value;
